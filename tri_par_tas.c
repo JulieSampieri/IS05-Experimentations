@@ -5,13 +5,13 @@
 #define TAILLE_MAX 1000000
 #define SIZE 13
 
-void echanger(long long unsigned int *x, long long unsigned int *y) {
-    long long unsigned int temp = *x;
+void echanger(uint64_t *x, uint64_t *y) {
+    uint64_t temp = *x;
     *x = *y;
     *y = temp;
 }
 
-void entasser(long long unsigned int A[], int n, int i) {
+void entasser(uint64_t A[], int n, int i) {
     int plus_grand = i;
     int gauche = 2 * i + 1;
     int droite = 2 * i + 2;
@@ -28,7 +28,7 @@ void entasser(long long unsigned int A[], int n, int i) {
     }
 }
 
-void triParTas(long long unsigned int A[], int n) {
+void triParTas(uint64_t A[], int n) {
     for (int i = n / 2 - 1; i >= 0; i--)
         entasser(A, n, i);
 
@@ -57,13 +57,13 @@ int main() {
 
     //Remplissage du tableau de références
     int i = 0;
-    while (fscanf(file_in, "%llu", &tab[i]) != EOF && i < SIZE) { // Utilise %llu pour uint64_t
+    while (i < SIZE && fscanf(file_in, "%llu", &tab[i]) != EOF) { // Utilise %llu pour uint64_t
         i++;
     }
     fclose(file_in);
 
     // Tri par tas du tableau
-    triParTas(tab, SIZE);
+    triParTas(tab, i); // Passer la taille réelle du tableau
 
     // Écriture du tableau trié dans le fichier de sortie
     FILE *file_out;
@@ -73,8 +73,8 @@ int main() {
         free(tab);
         return 1;
     }
-    for (int i = 0; i < SIZE; i++) {
-        fprintf(file_out, "%llu \n", tab[i]); // Utilise %llu pour uint64_t
+    for (int j = 0; j < i; j++) { // Utiliser une variable différente de i pour l'itération
+        fprintf(file_out, "%llu\n", tab[j]); // Utilise %llu pour uint64_t
     }
     fclose(file_out);
 
