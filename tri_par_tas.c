@@ -1,11 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdint.h> // Inclure pour uint64_t
+#include <stdint.h>
 
-#define TAILLE_MAX 1000000
-#define SIZE 13
+#define SIZE 1000000 //13 pour les tests
 
-void echanger(long long unsigned int *x, long long unsigned int *y) {
+void echanger(long long unsigned int *x, long long unsigned int *y) { //ici, long long unsigned int et pas juste uint64_t car pas assez long (unsigned rajoute de la place)
     long long unsigned int temp = *x;
     *x = *y;
     *y = temp;
@@ -41,14 +40,14 @@ void triParTas(long long unsigned int A[], int n) {
 int main() {
     //Ouverture du fichier d'entrée
     FILE *file_in;
-    file_in = fopen("references-test.txt", "r");
+    file_in = fopen("references.txt", "r"); //"references-test.txt" pour le test avec 13 références
     if (file_in == NULL) {
         printf("Erreur lors de l'ouverture du fichier d'entrée.\n");
         return 1;
     }
 
     //Création du tableau contenant les références
-    uint64_t *tab = (uint64_t *)malloc(SIZE * sizeof(uint64_t));
+    long long unsigned int *tab = ( long long unsigned int  *)malloc(SIZE * sizeof( long long unsigned int ));
     if (tab == NULL) {
         printf("Allocation de mémoire a échoué.\n");
         fclose(file_in);
@@ -57,7 +56,7 @@ int main() {
 
     //Remplissage du tableau de références
     int i = 0;
-    while (fscanf(file_in, "%llu", &tab[i]) != EOF && i < SIZE) { // Utilise %llu pour uint64_t
+    while (fscanf(file_in, "%llu", &tab[i]) != EOF && i < SIZE) {
         i++;
     }
     fclose(file_in);
@@ -67,14 +66,15 @@ int main() {
 
     // Écriture du tableau trié dans le fichier de sortie
     FILE *file_out;
-    file_out = fopen("references-tri-tas12.txt", "w");
+    file_out = fopen("references-tri-tas.txt", "w");
     if (file_out == NULL) {
         printf("Erreur lors de l'ouverture du fichier de sortie.\n");
         free(tab);
         return 1;
     }
     for (int i = 0; i < SIZE; i++) {
-        fprintf(file_out, "%llu \n", tab[i]); // Utilise %llu pour uint64_t
+        fprintf(file_out, "%llu \n", tab[i]);
+        //printf( "%llu \n", tab[i]);
     }
     fclose(file_out);
 
