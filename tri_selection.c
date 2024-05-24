@@ -1,10 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdint.h> // Inclure pour uint64_t
+#include <stdint.h>
 
-#define SIZE 13 //pour le test
+#define SIZE 1000000 //13 pour le test
 
-void TriParSelection(uint64_t *tab, int n){ //utilisation de pointeurs
+void TriParSelection(uint64_t *tab, int n){ //utilisation de pointeurs + uuint64_t car sinon, tri mal fait (références trop longues)
     uint64_t *fin = tab + n;
 
     for (uint64_t *i = tab; i < fin - 1; i++) {
@@ -25,7 +25,7 @@ int main()
 {
     //Ouverture du fichier d'entrée
     FILE *file_in;
-    file_in = fopen("references-test.txt", "r");
+    file_in = fopen("references.txt", "r"); //"references-test.txt" pour le test avec 13 références. 
     if (file_in == NULL) {
         printf("Erreur lors de l'ouverture du fichier d'entrée.\n");
         return 1;
@@ -41,7 +41,7 @@ int main()
 
     //Remplissage du tableau de références
     int i = 0;
-    while (fscanf(file_in, "%llu", &tab[i]) != EOF && i < SIZE) { // Utilise %llu pour uint64_t
+    while (fscanf(file_in, "%llu", &tab[i]) != EOF && i < SIZE) { // Utilise %llu pour uint64_t au lieu de %d
         i++;
     }
     fclose(file_in);
@@ -51,7 +51,7 @@ int main()
 
     // Écriture du tableau trié dans le fichier de sortie
     FILE *file_out;
-    file_out = fopen("references-tri-selection7.txt", "w");
+    file_out = fopen("references-tri-selection.txt", "w");
     if (file_out == NULL) {
         printf("Erreur lors de l'ouverture du fichier de sortie.\n");
         free(tab);
@@ -59,6 +59,7 @@ int main()
     }
     for (int i = 0; i < SIZE; i++) {
         fprintf(file_out, "%llu \n", tab[i]); // Utilise %llu pour uint64_t
+        //printf("%llu \n", tab[i]); pour écrire les valeurs dans la console pour vérifier quand sur linux
     }
     fclose(file_out);
 
