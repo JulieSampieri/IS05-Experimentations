@@ -1,4 +1,4 @@
-
+#!/volsme/users/is05p007/Bureau/pypy3.10-v7.3.16-linux64/bin/pypy3 
 def construire_tas(arr, n, i):
     largest = i  
     l = 2 * i + 1     
@@ -30,7 +30,7 @@ def tri_par_tas(arr):
 
 def main():
     # Lecture de references.txt
-    with open('references-test.txt', 'r', encoding='UTF-8') as file:
+    with open('references.txt', 'r', encoding='UTF-8') as file:
         references = [int(line.strip()) for line in file]
 
     tri_par_tas(references)

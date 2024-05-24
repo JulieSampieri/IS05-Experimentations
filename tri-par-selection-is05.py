@@ -1,4 +1,4 @@
-
+#!/volsme/users/is05p007/Bureau/pypy3.10-v7.3.16-linux64/bin/pypy3 
 def tri_selection(arr):
     n = len(arr)
     for i in range(n):
